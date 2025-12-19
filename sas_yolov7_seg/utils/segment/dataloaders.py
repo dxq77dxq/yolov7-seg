@@ -11,11 +11,11 @@ import numpy as np
 import torch
 from torch.utils.data import DataLoader, distributed
 
-from ..augmentations import augment_hsv, copy_paste, letterbox
-from ..dataloaders import InfiniteDataLoader, LoadImagesAndLabels, seed_worker
-from ..general import LOGGER, xyn2xy, xywhn2xyxy, xyxy2xywhn
-from ..torch_utils import torch_distributed_zero_first
-from .augmentations import mixup, random_perspective
+from sas_yolov7_seg.utils.augmentations import augment_hsv, copy_paste, letterbox
+from sas_yolov7_seg.utils.dataloaders import InfiniteDataLoader, LoadImagesAndLabels, seed_worker
+from sas_yolov7_seg.utils.general import LOGGER, xyn2xy, xywhn2xyxy, xyxy2xywhn
+from sas_yolov7_seg.utils.torch_utils import torch_distributed_zero_first
+from sas_yolov7_seg.utils.segment.augmentations import mixup, random_perspective
 
 
 def create_dataloader(path,

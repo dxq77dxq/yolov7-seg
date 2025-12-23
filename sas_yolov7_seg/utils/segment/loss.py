@@ -2,11 +2,11 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from ..general import xywh2xyxy
-from ..loss import FocalLoss, smooth_BCE
-from ..metrics import bbox_iou
-from ..torch_utils import de_parallel
-from .general import crop
+from sas_yolov7_seg.utils.general import xywh2xyxy
+from sas_yolov7_seg.utils.loss import FocalLoss, smooth_BCE
+from sas_yolov7_seg.utils.metrics import bbox_iou
+from sas_yolov7_seg.utils.torch_utils import de_parallel
+from sas_yolov7_seg.utils.segment.general import crop
 
 
 class ComputeLoss:

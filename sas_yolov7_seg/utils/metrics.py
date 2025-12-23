@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 
-from utils import TryExcept, threaded
+from sas_yolov7_seg.utils import TryExcept, threaded
 
 
 def fitness(x):

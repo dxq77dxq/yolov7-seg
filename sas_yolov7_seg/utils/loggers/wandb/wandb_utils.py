@@ -8,7 +8,6 @@ from pathlib import Path
 from typing import Dict
 
 import yaml
-from tqdm import tqdm
 
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[3]  # YOLOv5 root directory
@@ -392,7 +391,7 @@ class WandbLogger():
         """
         self.val_table_path_map = {}
         LOGGER.info("Mapping dataset")
-        for i, data in enumerate(tqdm(self.val_table.data)):
+        for i, data in enumerate(self.val_table.data):
             self.val_table_path_map[data[3]] = data[0]
 
     def create_dataset_table(self, dataset: LoadImagesAndLabels, class_to_id: Dict[int, str], name: str = 'dataset'):
@@ -409,8 +408,8 @@ class WandbLogger():
         """
         # TODO: Explore multiprocessing to slpit this loop parallely| This is essential for speeding up the the logging
         artifact = wandb.Artifact(name=name, type="dataset")
-        img_files = tqdm([dataset.path]) if isinstance(dataset.path, str) and Path(dataset.path).is_dir() else None
-        img_files = tqdm(dataset.im_files) if not img_files else img_files
+        img_files = [dataset.path] if isinstance(dataset.path, str) and Path(dataset.path).is_dir() else None
+        img_files = dataset.im_files if not img_files else img_files
         for img_file in img_files:
             if Path(img_file).is_dir():
                 artifact.add_dir(img_file, name='data/images')
@@ -423,7 +422,7 @@ class WandbLogger():
                                   label_file.name) if label_file.exists() else None
         table = wandb.Table(columns=["id", "train_image", "Classes", "name"])
         class_set = wandb.Classes([{'id': id, 'name': name} for id, name in class_to_id.items()])
-        for si, (img, labels, paths, shapes) in enumerate(tqdm(dataset)):
+        for si, (img, labels, paths, shapes) in enumerate(dataset):
             box_data, img_classes = [], {}
             for cls, *xywh in labels[:, 1:].tolist():
                 cls = int(cls)

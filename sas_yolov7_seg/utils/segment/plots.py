@@ -9,7 +9,7 @@ import torch
 
 from .. import threaded
 from ..general import xywh2xyxy
-from ..plots import Annotator, colors
+from ..plots import colors
 
 
 def plot_masks(img, masks, colors, alpha=0.5):
